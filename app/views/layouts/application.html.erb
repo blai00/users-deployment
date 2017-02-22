@@ -9,6 +9,27 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div id="content"> 
+      <%= yield %>
+    </div>
+
+    <script>
+
+      function newUserClick(event){
+        event.preventDefault();
+        // Send an http request to 'users/new'
+        $.ajax({
+          method: 'get',
+          url: $(this).attr('href'),
+          // Hook up code to execute when the server responds
+          success: function(serverResponse){
+            // Replace the content ID with whatever the server gives us
+            $('#content').html(serverResponse);
+          }
+        });
+      }
+      // Hook up code to execute when New User link is clicked
+      $('#new-user').click(newUserClick);
+    </script>
   </body>
 </html>
